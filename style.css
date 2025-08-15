@@ -5,11 +5,11 @@ body {
   background-color: #A9A9A9; /* warna biru muda */
   margin: 0;
   padding: 0;
-  color: #00008B;
+  color: #ffffff;
 }
 
 header {
-  background-color: #00FFFF; /* hijau */
+  background-color: #000000; /* hitam */
   color: white;
   padding: 20px 0;
   text-align: center;
