@@ -34,7 +34,7 @@ main img {
 
 footer {
   background: linear-gradient(to right, violet, indigo, blue);
-  color: white;
+  color: #00FF7F;
   text-align: center;
   padding: 10px 0;
   position: fixed;
