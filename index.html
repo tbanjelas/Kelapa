@@ -12,27 +12,56 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         /* Header */
         .header {
-            background: linear-gradient(45deg, #2c3e50, #3498db);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #11998e 100%);
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .header-content {
@@ -40,31 +69,45 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(255, 0, 110, 0.3)) hue-rotate(0deg); }
+            to { filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.6)) hue-rotate(90deg); }
         }
 
         .header-info {
             text-align: right;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
         /* Navigation */
         .nav {
-            background: rgba(52, 73, 94, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav ul {
@@ -72,34 +115,52 @@
             justify-content: center;
             list-style: none;
             flex-wrap: wrap;
-        }
-
-        .nav li {
-            margin: 0 1rem;
+            gap: 0.5rem;
         }
 
         .nav a {
             color: white;
             text-decoration: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 25px;
-            transition: all 0.3s ease;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: block;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             font-size: 0.9rem;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, transparent, transparent);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav a:hover::before, .nav a.active::before {
+            left: 0;
         }
 
         .nav a:hover, .nav a.active {
-            background: linear-gradient(45deg, #e74c3c, #f39c12);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Main Layout */
         .main-layout {
             display: grid;
-            grid-template-columns: 250px 1fr 280px;
+            grid-template-columns: 280px 1fr 320px;
             gap: 2rem;
             padding: 2rem;
             min-height: calc(100vh - 200px);
@@ -107,227 +168,436 @@
 
         /* Sidebar Left - Iklan */
         .sidebar-left {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 15px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border-radius: 25px;
+            padding: 2rem;
             height: fit-content;
             position: sticky;
             top: 120px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .sidebar-left h3 {
             color: white;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .ad-item {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .ad-item:hover::before {
+            left: 100%;
         }
 
         .ad-item:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .ad-item img {
             width: 100%;
-            height: 120px;
+            height: 140px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ad-item:hover img {
+            transform: scale(1.1);
         }
 
         /* Content Area */
         .content {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .section {
             display: none;
-            animation: fadeIn 0.5s ease-in;
+            animation: slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .section.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
         }
 
         .section h2 {
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 0.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border-radius: 2px;
         }
 
         .news-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
         .news-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 12px;
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            background-size: 200% 200%;
+            animation: gradientMove 3s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
         }
 
         .news-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .news-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1) saturate(1.2);
         }
 
         .news-card-content {
-            padding: 1.2rem;
+            padding: 1.5rem;
         }
 
         .news-card h3 {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            background: linear-gradient(45deg, #1a1a1a, #2d1b69);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.4;
         }
 
         .news-card p {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .news-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             padding-top: 1rem;
-            border-top: 1px solid #eee;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .news-date {
-            color: #888;
-            font-size: 0.8rem;
+            color: #718096;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .news-category {
-            background: linear-gradient(45deg, #3498db, #2980b9);
+            background: linear-gradient(45deg, #ff006e, #8338ec);
             color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
             font-size: 0.8rem;
-            font-weight: bold;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.3);
         }
 
         /* Sidebar Right - Update Berita */
         .sidebar-right {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+            border-radius: 25px;
+            padding: 2rem;
             height: fit-content;
             position: sticky;
             top: 120px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .sidebar-right h3 {
-            color: #2c3e50;
-            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
             text-align: center;
-            font-size: 1.3rem;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .sidebar-right h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            border-radius: 2px;
         }
 
         .update-item {
-            border-left: 4px solid #3498db;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 0 10px 10px 0;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff, #f8fafc);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid;
+            border-image: linear-gradient(45deg, #ff006e, #8338ec) 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .update-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+            animation: borderGlow 2s ease infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            from { box-shadow: 0 0 5px rgba(255, 0, 110, 0.5); }
+            to { box-shadow: 0 0 20px rgba(255, 0, 110, 0.8); }
         }
 
         .update-item:hover {
-            background: linear-gradient(135deg, #e9ecef, #dee2e6);
-            transform: translateX(5px);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
         }
 
         .update-title {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #1a1a1a, #2d1b69);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
         .update-time {
-            color: #666;
-            font-size: 0.8rem;
+            color: #718096;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 75%, #f5576c 100%);
             color: white;
             text-align: center;
-            padding: 3rem 2rem;
-            margin-bottom: 2rem;
-            border-radius: 15px;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
         }
 
         .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* Breaking News */
+        .breaking-news {
+            background: linear-gradient(45deg, #ff006e, #8338ec);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            animation: pulse 2s infinite, colorShift 4s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breaking-news::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: sweep 2s ease infinite;
+        }
+
+        @keyframes sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes colorShift {
+            0% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(180deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.01); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         /* Footer */
         .footer {
-            background: #2c3e50;
+            background: linear-gradient(135deg, #1a1a1a, #2d1b69);
             color: white;
             text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+            padding: 3rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff006e, #8338ec, #3a86ff, transparent);
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
             .main-layout {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
             }
 
             .nav ul {
                 flex-direction: column;
                 align-items: center;
-            }
-
-            .nav li {
-                margin: 0.2rem 0;
+                gap: 0.5rem;
             }
 
             .sidebar-left, .sidebar-right {
@@ -342,8 +612,8 @@
             }
 
             .logo {
-                font-size: 2rem;
-                margin-bottom: 0.5rem;
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
             }
 
             .main-layout {
@@ -351,38 +621,67 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .news-grid {
                 grid-template-columns: 1fr;
             }
+
+            .content {
+                padding: 1.5rem;
+            }
         }
 
-        .breaking-news {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 0.8rem;
-            text-align: center;
-            font-weight: bold;
-            animation: pulse 2s infinite;
+        /* Floating particles effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.8; }
-            100% { opacity: 1; }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float-particle 15s infinite linear;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
     <div class="container">
         <!-- Header -->
         <header class="header">
             <div class="header-content">
                 <div class="logo">TimorHits</div>
                 <div class="header-info">
-                    <div>Portal Berita Terkini</div>
+                    <div>🌟 Portal Berita Terkini & Terpercaya</div>
                     <div id="current-date"></div>
                 </div>
             </div>
@@ -390,18 +689,18 @@
 
         <!-- Breaking News -->
         <div class="breaking-news">
-            🔴 BREAKING: Berita Terkini - Pantau terus perkembangan terbaru di TimorHits
+            🔥 BREAKING NEWS: Pantau terus perkembangan berita terkini hanya di TimorHits - Portal berita terdepan! 🔥
         </div>
 
         <!-- Navigation -->
         <nav class="nav">
             <ul>
-                <li><a href="#" onclick="showSection('beranda')" class="nav-link active">Beranda</a></li>
-                <li><a href="#" onclick="showSection('teknologi')" class="nav-link">Teknologi</a></li>
-                <li><a href="#" onclick="showSection('ekonomi')" class="nav-link">Ekonomi</a></li>
-                <li><a href="#" onclick="showSection('politik')" class="nav-link">Politik</a></li>
-                <li><a href="#" onclick="showSection('olahraga')" class="nav-link">Olahraga</a></li>
-                <li><a href="#" onclick="showSection('kesehatan')" class="nav-link">Kesehatan</a></li>
+                <li><a href="#" onclick="showSection('beranda')" class="nav-link active">🏠 Beranda</a></li>
+                <li><a href="#" onclick="showSection('teknologi')" class="nav-link">💻 Teknologi</a></li>
+                <li><a href="#" onclick="showSection('ekonomi')" class="nav-link">💰 Ekonomi</a></li>
+                <li><a href="#" onclick="showSection('politik')" class="nav-link">🏛️ Politik</a></li>
+                <li><a href="#" onclick="showSection('olahraga')" class="nav-link">⚽ Olahraga</a></li>
+                <li><a href="#" onclick="showSection('kesehatan')" class="nav-link">🏥 Kesehatan</a></li>
             </ul>
         </nav>
 
@@ -409,21 +708,21 @@
         <div class="main-layout">
             <!-- Sidebar Left - Iklan -->
             <aside class="sidebar-left">
-                <h3>🎯 IKLAN</h3>
+                <h3>✨ SPONSOR</h3>
                 <div class="ad-item">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'><rect width='200' height='120' fill='%23ff6b6b'/><text x='100' y='65' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>PROMO SPESIAL</text></svg>" alt="Iklan 1">
-                    <strong>Belanja Hemat!</strong>
-                    <p>Diskon hingga 50% untuk semua produk</p>
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='140' viewBox='0 0 250 140'><defs><linearGradient id='grad1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23ff006e'/><stop offset='100%' style='stop-color:%238338ec'/></linearGradient></defs><rect width='250' height='140' fill='url(%23grad1)'/><text x='125' y='75' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>🛍️ MEGA SALE</text></svg>" alt="Mega Sale">
+                    <strong style="background: linear-gradient(45deg, #ff006e, #8338ec); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🎉 MEGA SALE!</strong>
+                    <p>Diskon gila-gilaan hingga 70% untuk semua produk favorit!</p>
                 </div>
                 <div class="ad-item">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'><rect width='200' height='120' fill='%2351cf66'/><text x='100' y='65' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>KESEHATAN</text></svg>" alt="Iklan 2">
-                    <strong>Hidup Sehat</strong>
-                    <p>Konsultasi dokter online 24/7</p>
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='140' viewBox='0 0 250 140'><defs><linearGradient id='grad2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%2351cf66'/><stop offset='100%' style='stop-color:%2338d9a9'/></linearGradient></defs><rect width='250' height='140' fill='url(%23grad2)'/><text x='125' y='75' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>💊 HEALTH+</text></svg>" alt="Health Plus">
+                    <strong style="background: linear-gradient(45deg, #51cf66, #38d9a9); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">💊 HEALTH+</strong>
+                    <p>Konsultasi dokter online 24/7 dengan teknologi AI terdepan</p>
                 </div>
                 <div class="ad-item">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'><rect width='200' height='120' fill='%23339af0'/><text x='100' y='65' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>TEKNOLOGI</text></svg>" alt="Iklan 3">
-                    <strong>Gadget Terbaru</strong>
-                    <p>Smartphone flagship dengan harga terjangkau</p>
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='140' viewBox='0 0 250 140'><defs><linearGradient id='grad3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%233a86ff'/><stop offset='100%' style='stop-color:%2306ffa5'/></linearGradient></defs><rect width='250' height='140' fill='url(%23grad3)'/><text x='125' y='75' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>📱 TECH PRO</text></svg>" alt="Tech Pro">
+                    <strong style="background: linear-gradient(45deg, #3a86ff, #06ffa5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">📱 TECH PRO</strong>
+                    <p>Gadget flagship terbaru dengan teknologi revolusioner!</p>
                 </div>
             </aside>
 
@@ -432,17 +731,19 @@
                 <!-- Beranda Section -->
                 <section id="beranda" class="section active">
                     <div class="hero">
-                        <h1>Selamat Datang di TimorHits</h1>
-                        <p>Portal berita terpercaya untuk informasi terkini dari berbagai bidang</p>
+                        <div class="hero-content">
+                            <h1>🚀 Selamat Datang di TimorHits</h1>
+                            <p>Portal berita super keren dengan update real-time dari seluruh dunia!</p>
+                        </div>
                     </div>
                     
-                    <h2>🏠 Berita Utama Hari Ini</h2>
+                    <h2>🔥 Trending News Hari Ini</h2>
                     <div class="news-grid">
                         <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23667eea'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>BERITA UTAMA</text></svg>" alt="Berita Utama">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='220' viewBox='0 0 400 220'><defs><linearGradient id='heroGrad1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23667eea'/><stop offset='50%' style='stop-color:%23764ba2'/><stop offset='100%' style='stop-color:%23f093fb'/></linearGradient></defs><rect width='400' height='220' fill='url(%23heroGrad1)'/><text x='200' y='115' text-anchor='middle' fill='white' font-size='18' font-weight='bold'>💎 EKONOMI DIGITAL</text></svg>" alt="Ekonomi Digital">
                             <div class="news-card-content">
-                                <h3>Perkembangan Ekonomi Digital di Indonesia Tahun 2025</h3>
-                                <p>Pertumbuhan ekonomi digital Indonesia mencapai rekor tertinggi dengan kontribusi signifikan dari sektor fintech dan e-commerce...</p>
+                                <h3>🚀 Boom Ekonomi Digital Indonesia 2025</h3>
+                                <p>Pertumbuhan ekonomi digital Indonesia mencapai rekor tertinggi dengan kontribusi luar biasa dari sektor fintech, e-commerce, dan startup unicorn yang bermunculan...</p>
                                 <div class="news-meta">
                                     <span class="news-date">1 September 2025</span>
                                     <span class="news-category">Ekonomi</span>
@@ -451,172 +752,4 @@
                         </article>
                         
                         <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23764ba2'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>TEKNOLOGI</text></svg>" alt="Teknologi">
-                            <div class="news-card-content">
-                                <h3>Inovasi AI Terbaru Mengubah Landscape Industri</h3>
-                                <p>Teknologi kecerdasan buatan terbaru membawa revolusi dalam berbagai sektor industri dengan efisiensi yang luar biasa...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">1 September 2025</span>
-                                    <span class="news-category">Teknologi</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23f39c12'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>OLAHRAGA</text></svg>" alt="Olahraga">
-                            <div class="news-card-content">
-                                <h3>Prestasi Gemilang Atlet Indonesia di Kompetisi Internasional</h3>
-                                <p>Tim nasional Indonesia meraih medali emas dalam kejuaraan dunia, membanggakan nama bangsa di kancah internasional...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">31 Agustus 2025</span>
-                                    <span class="news-category">Olahraga</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%2351cf66'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>KESEHATAN</text></svg>" alt="Kesehatan">
-                            <div class="news-card-content">
-                                <h3>Terobosan Baru dalam Pengobatan Penyakit Kronis</h3>
-                                <p>Para peneliti mengembangkan terapi inovatif yang terbukti efektif dalam mengatasi berbagai penyakit kronis...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">31 Agustus 2025</span>
-                                    <span class="news-category">Kesehatan</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <!-- Teknologi Section -->
-                <section id="teknologi" class="section">
-                    <h2>💻 Teknologi</h2>
-                    <div class="news-grid">
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%233498db'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='14' font-weight='bold'>ARTIFICIAL INTELLIGENCE</text></svg>" alt="AI News">
-                            <div class="news-card-content">
-                                <h3>Revolusi AI dalam Kehidupan Sehari-hari</h3>
-                                <p>Perkembangan AI semakin memudahkan aktivitas harian masyarakat dengan berbagai aplikasi pintar dan otomatisasi...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">1 September 2025</span>
-                                    <span class="news-category">AI</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%239b59b6'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>STARTUP</text></svg>" alt="Startup">
-                            <div class="news-card-content">
-                                <h3>Startup Indonesia Raih Pendanaan Fantastis</h3>
-                                <p>Beberapa startup teknologi lokal berhasil meraih pendanaan besar dari investor internasional untuk ekspansi global...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">31 Agustus 2025</span>
-                                    <span class="news-category">Startup</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <!-- Ekonomi Section -->
-                <section id="ekonomi" class="section">
-                    <h2>💰 Ekonomi</h2>
-                    <div class="news-grid">
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%2327ae60'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>PASAR SAHAM</text></svg>" alt="Pasar Saham">
-                            <div class="news-card-content">
-                                <h3>Indeks Harga Saham Gabungan Menguat Signifikan</h3>
-                                <p>IHSG mencatat kenaikan tertinggi dalam tiga bulan terakhir didorong optimisme investor terhadap sektor teknologi...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">1 September 2025</span>
-                                    <span class="news-category">Investasi</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23e67e22'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>UMKM</text></svg>" alt="UMKM">
-                            <div class="news-card-content">
-                                <h3>Dukungan Pemerintah untuk UMKM Go Digital</h3>
-                                <p>Program digitalisasi UMKM mendapat respon positif dengan ribuan pelaku usaha kecil beralih ke platform digital...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">31 Agustus 2025</span>
-                                    <span class="news-category">UMKM</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <!-- Politik Section -->
-                <section id="politik" class="section">
-                    <h2>🏛️ Politik</h2>
-                    <div class="news-grid">
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23e74c3c'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>KEBIJAKAN</text></svg>" alt="Politik">
-                            <div class="news-card-content">
-                                <h3>Kebijakan Baru Pemerintah untuk Pembangunan Infrastruktur</h3>
-                                <p>Pemerintah mengumumkan program pembangunan infrastruktur masif untuk mendukung pertumbuhan ekonomi regional...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">1 September 2025</span>
-                                    <span class="news-category">Kebijakan</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%2334495e'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>DIPLOMASI</text></svg>" alt="Diplomasi">
-                            <div class="news-card-content">
-                                <h3>Kerjasama Bilateral Indonesia Semakin Menguat</h3>
-                                <p>Berbagai kesepakatan strategis ditandatangani untuk memperkuat hubungan diplomatik dan ekonomi antar negara...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">31 Agustus 2025</span>
-                                    <span class="news-category">Diplomasi</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <!-- Olahraga Section -->
-                <section id="olahraga" class="section">
-                    <h2>⚽ Olahraga</h2>
-                    <div class="news-grid">
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23f39c12'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>SEPAK BOLA</text></svg>" alt="Sepak Bola">
-                            <div class="news-card-content">
-                                <h3>Timnas Indonesia Lolos ke Babak Final</h3>
-                                <p>Prestasi membanggakan timnas sepak bola Indonesia yang berhasil melaju ke babak final setelah pertandingan sengit...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">1 September 2025</span>
-                                    <span class="news-category">Sepak Bola</span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%23e67e22'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>BADMINTON</text></svg>" alt="Badminton">
-                            <div class="news-card-content">
-                                <h3>Atlet Badminton Indonesia Juara Dunia</h3>
-                                <p>Kebanggaan Indonesia di kancah badminton internasional dengan meraih gelar juara dunia dalam turnamen bergengsi...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">30 Agustus 2025</span>
-                                    <span class="news-category">Badminton</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-
-                <!-- Kesehatan Section -->
-                <section id="kesehatan" class="section">
-                    <h2>🏥 Kesehatan</h2>
-                    <div class="news-grid">
-                        <article class="news-card">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200' viewBox='0 0 400 200'><rect width='400' height='200' fill='%2351cf66'/><text x='200' y='105' text-anchor='middle' fill='white' font-size='16' font-weight='bold'>VAKSINASI</text></svg>" alt="Kesehatan">
-                            <div class="news-card-content">
-                                <h3>Program Vaksinasi Nasional Capai Target 95%</h3>
-                                <p>Capaian luar biasa program vaksinasi nasional yang berhasil mencapai cakupan 95% populasi target dengan efektifitas tinggi...</p>
-                                <div class="news-meta">
-                                    <span class="news-date">1 September 2025</span>
-                                    <span class="news-category">
+                            <img src="data:image/svg+xml,<svg xmlns='http://www
