@@ -1,32 +1,124 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struktur Dasar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Struktur Dasar</title>
+  <style>
+    /* Reset dasar */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      background-color: #f9fafb;
+      color: #333;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 10%;
+      background-color: #facc15; /* kuning pisang */
+    }
+
+    header .logo h1 {
+      color: #333;
+      font-size: 24px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #16a34a; /* hijau */
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(to right, #fef9c3, #fde68a);
+    }
+
+    #hero h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    #hero p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    #hero .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #16a34a;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    #hero .btn:hover {
+      background-color: #15803d;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #facc15;
+      color: #333;
+      font-size: 14px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-        <h1>PISANG</h1>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="logo">
+      <h1>PISANG</h1>
     </div>
     <nav>
-        <ul>
-            <li><a href="#hero">Beranda</a></li>
-            <li><a href="#tentang">Tentang</a></li>
-            <li><a href="#layanan">Layanan</a></li>
-            <li><a href="#kontak">Kontak</a></li>
-        </ul>
-        </nav>
-    </header>
-    <section id="hero">
-        <h2>Selamat Datang di Website Kami</h2>
-        <p>Ini adalah bagian hero, tempat kamu bisa menampilkan informasi utama.</p>
-        <a href="#kontak" class="btn">Hubungi kami</a>
-    </section>
-    <footer>
-        <p>&copy; 2025 Nama Pisang. Semua Hak Dilindungi.</p>
-    </footer>
-    
+      <ul>
+        <li><a href="#hero">Beranda</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <h2>Selamat Datang di Website Kami</h2>
+    <p>Ini adalah bagian hero, tempat kamu bisa menampilkan informasi utama.</p>
+    <a href="#kontak" class="btn">Hubungi Kami</a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>&copy; 2025 Nama Pisang. Semua Hak Dilindungi.</p>
+  </footer>
 </body>
 </html>
